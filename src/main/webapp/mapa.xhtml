@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:map="http://java.sun.com/jsf/composite/components/map"
+  template="/templates/default.xhtml">
+  
+  <ui:define name="content">
+    <h4><h:outputText value="#{msg.mapAboutText}" /></h4>
+    <h:form id="mapform">
+      <h:panelGrid columns="2">
+        <h:outputText value="#{msg.formZoomLevel}" />
+        <h:selectOneMenu value="#{mapBean.zoomLevel}">
+          <f:ajax render="mapform" />
+          <f:selectItems value="#{mapBean.zoomLevelItems}" />
+        </h:selectOneMenu>
+        <h:outputText value="#{msg.formCity}" />
+        <h:inputText value="#{mapBean.city}">
+        </h:inputText>
+        <h:commandButton value=" OK " />
+      </h:panelGrid>
+          
+      <h:panelGrid>
+        <map:simplemap id="mapa" zoomLevel="#{mapBean.zoomLevel}"
+          city="#{mapBean.city}" />
+      </h:panelGrid>
+    </h:form>
+  </ui:define>
+
+</ui:composition>
