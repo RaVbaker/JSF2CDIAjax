@@ -73,7 +73,6 @@ public class MapBean implements Serializable {
 		} else {
 			cityError = "Map only for Sopot and Gdynia";
 		}
-		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		fc.renderResponse();
 	}
