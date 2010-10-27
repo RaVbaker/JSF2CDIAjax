@@ -5,22 +5,35 @@
   xmlns:h="http://java.sun.com/jsf/html"
   xmlns:map="http://java.sun.com/jsf/composite/components/map"
   template="/templates/default.xhtml">
-  
+
   <ui:define name="content">
     <h4><h:outputText value="#{msg.mapAboutText}" /></h4>
     <h:form id="mapform">
+      <f:event type="postValidate"
+        listener="#{mapBean.validateCityAndZoom}" />
       <h:panelGrid columns="2">
         <h:outputText value="#{msg.formZoomLevel}" />
-        <h:selectOneMenu value="#{mapBean.zoomLevel}">
+        <h:selectOneMenu id="zoomLevel" value="#{mapBean.zoomLevel}">
+          <!-- 
           <f:ajax render="mapform" />
+           -->
           <f:selectItems value="#{mapBean.zoomLevelItems}" />
         </h:selectOneMenu>
         <h:outputText value="#{msg.formCity}" />
-        <h:inputText value="#{mapBean.city}">
+        <h:inputText id="city" value="#{mapBean.city}"
+          valueChangeListener="#{mapBean.validateCity}">
+          <f:ajax event="blur" render="mapform" />
         </h:inputText>
+
         <h:commandButton value=" OK " />
       </h:panelGrid>
-          
+
+      <h:panelGrid>
+        <h:outputText id="cityError" value="#{mapBean.cityError}" />
+        <br />
+        <h:messages showDetail="#{true}" showSummary="#{false}" />
+      </h:panelGrid>
+
       <h:panelGrid>
         <map:simplemap id="mapa" zoomLevel="#{mapBean.zoomLevel}"
           city="#{mapBean.city}" />
