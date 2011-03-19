@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:map="http://java.sun.com/jsf/composite/components/map"
+  xmlns:p="http://primefaces.prime.com.tr/ui"  
+  template="/templates/default.xhtml">
+  
+  <ui:define name="content">
+  
+  <p>Nowa osoba</p>
+
+  <h:form>
+      <h:messages/>                
+      
+      Imię: <h:inputText value="#{osobaBean.osoba.imie}" /><br />
+      Rok urodzenia: <p:inputMask mask="9999" value="#{osobaBean.osoba.rokUr}" /><br />
+      Pesel: <p:inputMask mask="99999999" value="#{osobaBean.osoba.pesel}" /><br />
+      <h:commandButton action="#{osobaBean.dodajOsobe}" value="Dodaj osobę"/><br />
+      
+      <h:commandLink action="osoby" immediate="true">zobacz osoby</h:commandLink>
+  </h:form>
+  </ui:define>
+</ui:composition>

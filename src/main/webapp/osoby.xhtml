@@ -12,7 +12,7 @@
   <p>Osoby</p>
 
   <h:form>
-      <p:dataTable var="item" value="#{osobyBean.osoby}">
+      <p:dataTable var="item" value="#{osobyBean.osoby}" selection="#{osobyBean.wybranaOsoba}" selectionMode="single">
           <p:column>
               <f:facet name="header">
                       Imie
@@ -33,8 +33,39 @@
               </f:facet>
               <h:outputText value="#{item.rokUr}" />
           </p:column>
+          
+          <p:column> 
+              <f:facet name="header">
+                Opcje
+              </f:facet>
+              <h:commandButton actionListener="#{osobyBean.usunWybranaOsobe}" value="Usuń" >
+                <f:setPropertyActionListener target="#{osobyBean.wybranaOsoba}" value="#{item}"/>
+                <p:effect type="explode" event="click" />
+              </h:commandButton>
+          </p:column>
                                                
-      </p:dataTable>
+      </p:dataTable>              
+      
+      <h:commandButton actionListener="osoby" value="Pokaż" update="display" />
+      
+      <p:commandButton value="Renderuj imie!" update="nameGfx" ></p:commandButton>
+      
+      <h:panelGrid id="nameGfx" columns="2" cellpadding='4'>                                                
+          <p:graphicText value="#{osobyBean.wybranaOsoba.imie}" fontName="#{osobyBean.randomFont}" fontSize="30" /> 
+      </h:panelGrid>
+      
+      <h:panelGrid id="display" columns="2" cellpadding="4">
+        <h:outputText value="Imię:"/>
+        <h:outputText value="#{osobyBean.wybranaOsoba.imie}"/>
+        
+        <h:outputText value="Rok urodzenia:"/>
+        <h:outputText value="#{osobyBean.wybranaOsoba.rokUr}"/>
+        
+        <h:outputText value="Pesel:"/>
+        <h:outputText value="#{osobyBean.wybranaOsoba.pesel}"/>
+      </h:panelGrid>
+      
+      <h:commandLink action="dodajOsobe">dodaj nową osobę</h:commandLink>
   </h:form>
   </ui:define>
 </ui:composition>
